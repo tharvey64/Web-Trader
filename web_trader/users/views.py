@@ -6,7 +6,7 @@ from users.models import User
 
 # Create your views here.
 class MainView(View):
-    template = 'index.html'
+    template = 'users/index.html'
 
     def get(self,request):
         return render(request,self.template)
@@ -16,7 +16,7 @@ class LogInView(View):
     form_class = UserForm
 
     def get(self, request):
-        return render(request, self.template,{'form':form_class()})
+        return render(request, self.template,{'form':self.form_class()})
 
     def post(self, request):
         username = request.POST['username']
@@ -31,7 +31,7 @@ class RegisterView(View):
     form_class = UserForm
 
     def get(self, request):
-        return render(request, self.template,{'form':form_class()})
+        return render(request, self.template,{'form':self.form_class()})
 
     def post(self, request):
         user_info = self.form_class(request.POST)
