@@ -23,7 +23,8 @@ class LogInView(View):
         password = request.POST['password']
         users = User.objects.all().filter(username=username)
         if len(users) == 1 and check_password(password,users[0].password):
-            return redirect("users/")
+            request.session['user_id'] = user.id
+            return redirect("/users/")
 
 
 class RegisterView(View):
@@ -36,8 +37,8 @@ class RegisterView(View):
     def post(self, request):
         user_info = self.form_class(request.POST)
         if user_info.is_valid():
-            user = user_info(commit=False)
+            user = user_info.save(commit=False)
             user.password = make_password(user.password)
             user.save()
             request.session['user_id'] = user.id
-            return redirect("users/")
+            return redirect("/users/")
