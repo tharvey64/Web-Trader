@@ -1,0 +1,25 @@
+<html>
+<head>
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'users/main.css' %}">
+</head>
+<body>
+<div class = "container">
+    <header>
+        {% block header %}
+        {% endblock %}
+    </header>
+
+    <div class = "content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <footer>
+        {% block footer %}
+        My Sweet Blag
+        {% endblock %}
+    </footer>
+</div>
+</body>
+</html>
