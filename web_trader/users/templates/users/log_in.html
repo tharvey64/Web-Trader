@@ -3,7 +3,7 @@
     {% block content %}
         <h1>User Log In</h1>
         <form name="log in" action="users/log_in/" method="POST">
-            {% csrf token %}
+            {% csrf_token %}
             <table>{{ form.as_table }}</table>
             <input type="submit" value="Submit">
         </form>
