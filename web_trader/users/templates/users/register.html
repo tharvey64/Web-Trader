@@ -1,0 +1,10 @@
+{% extends "users/base.html" %}
+
+    {% block content %}
+        <h1>User Registration</h1>
+        <form name="Register" action="users/register/" method="POST">
+            {% csrf token %}
+            <table>{{ form.as_table }}</table>
+            <input type="submit" value="Submit">
+        </form>
+    {% endblock %}
