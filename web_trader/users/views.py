@@ -24,7 +24,7 @@ class LogInView(View):
         users = User.objects.all().filter(username=username)
         if len(users) == 1 and check_password(password,users[0].password):
             return redirect("users/")
- 
+
 
 class RegisterView(View):
     template = 'users/register.html'

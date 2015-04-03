@@ -9,4 +9,5 @@ urlpatterns = patterns('',
     url(r'^$', MainView.as_view(),name='index'),
     url(r'^log_in/', LogInView.as_view(),name='log_in'),
     url(r'^register/', RegisterView.as_view(),name='register'),
+
 )
