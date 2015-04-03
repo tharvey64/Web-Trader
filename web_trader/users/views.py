@@ -6,7 +6,7 @@ from users.models import User
 
 # Create your views here.
 class MainView(View):
-    template = 'index.html'
+    template = 'users/index.html'
 
     def get(self,request):
         return render(request,self.template)
@@ -24,7 +24,7 @@ class LogInView(View):
         users = User.objects.all().filter(username=username)
         if len(users) == 1 and check_password(password,users[0].password):
             return redirect("users/")
- 
+
 
 class RegisterView(View):
     template = 'users/register.html'
