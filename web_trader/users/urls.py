@@ -6,7 +6,7 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'web_trader.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
-    usl(r'^', MainView.as_view(),name='index')
+    url(r'^$', MainView.as_view(),name='index'),
     url(r'^log_in/', LogInView.as_view(),name='log_in'),
-    url(r'^register/', RegisterView.as_view(),name='register')
+    url(r'^register/', RegisterView.as_view(),name='register'),
 )
