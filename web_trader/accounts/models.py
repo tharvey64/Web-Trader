@@ -24,7 +24,7 @@ class Account(models.Model):
         new_number = ''
         while not new_number:
             new_number = str(uuid.uuid4().int)[:17]
-            if cls.objects.filter(number=new_number):
+            if Account.objects.filter(number=new_number):
                 new_number = ''
         return new_number
 
@@ -32,4 +32,3 @@ class Account(models.Model):
         if not self.number:
             self.number = self._account_number()
         super().save(*arg,**kwargs)
-#derpderpderpderpderpderpderpderp
