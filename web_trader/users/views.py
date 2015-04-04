@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import make_password, check_password
 from users.forms import UserForm
 from users.models import User
+from bank.models import BankClient
 
 # Create your views here.
 class MainView(View):
@@ -24,7 +25,7 @@ class LogInView(View):
         users = User.objects.all().filter(username=username)
         if len(users) == 1 and check_password(password,users[0].password):
             request.session['user_id'] = users[0].id
-            return redirect("/bank/")
+            return render(request, 'users/welcome.html', {'user': users[0]})
         return redirect("/users/")
 
 class RegisterView(View):
@@ -41,5 +42,5 @@ class RegisterView(View):
             user.password = make_password(user.password)
             user.save()
             request.session['user_id'] = user.id
-            return render("/bank")
+            return render(request, 'users/welcome.html', {'user': user})
         return redirect("/users/")
