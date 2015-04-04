@@ -2,15 +2,20 @@
 <head>
 {% load staticfiles %}
 <link rel="stylesheet" href="{% static 'users/main.css' %}">
-</head>
+<link rel="stylesheet" href="{% static 'users/reset.css' %}">
 <body>
-<div class = "container">
     <header>
         {% block header %}
-            <h1>Dank Bank <i>'Where dreams become reality!'</i></h1>
+            <h1>Dank Bank:  'Where dreams become reality!'</h1>
         {% endblock %}
     </header>
-
+    <div class="nav">
+      <ul>
+      <a href="/users/">Home</a><br></br>
+      {% block nav %}
+      {% endblock %}
+      </ul>
+    </div>
     <div class = "content">
         {% block content %}
         {% endblock %}
@@ -18,7 +23,7 @@
 
     <footer>
         {% block footer %}
-        Dank Bank©
+        <h1>Dank Bank©</h1>
         {% endblock %}
     </footer>
 </div>
