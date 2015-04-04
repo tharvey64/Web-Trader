@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from users.models import User
+from accounts.models import Account
 # from bank.forms import BankForm
 
 # Create your views here.
@@ -25,4 +26,7 @@ class ViewBanker(View):
 		return render(request, self.template)
 
 	def post(self, request):
-		return redirect('/')
+		new_account = Account()
+		new_account.type_of = request.POST['type_of'])
+		new_account.number = new_account.generate_account_number() 
+		return redirect('/bank/')
