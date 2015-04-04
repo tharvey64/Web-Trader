@@ -11,16 +11,16 @@ class ViewNewClient(View):
 	template = 'bank/new_client.html'
 
 	def get(self,request):
-		current_user = request.session['user_id']	
-		user = User.objects.filter(id=current_user)	
+		current_user = request.session['user_id']
+		user = User.objects.filter(id=current_user)
 		return render(request, self.template, {'user':user})
 
 	def post(self, request):
-		current_user = request.session['user_id']	
-		user = User.objects.filter(id=current_user)	
+		current_user = request.session['user_id']
+		user = User.objects.filter(id=current_user)
 		new_client = BankClient(user=user[0])
 		new_client.save()
-		return redirect('/bank/')		
+		return redirect('/bank/')
 
 class ViewIndex(View):
 	template = 'bank/welcome.html'
@@ -47,14 +47,8 @@ class ViewBanker(View):
 	def post(self, request):
 		new_account = Account()
 		new_account.save()
-		
+
 		new_b_account = BankAccount(account=new_account)
 		new_b_account.type_of = request.POST['type_of']
 
 		return redirect('/bank/')
-
-
-
-
-
-
