@@ -6,6 +6,7 @@ from django.db import models
 # Handle withdraw and deposit here
 class Account(models.Model):
     number = models.CharField(max_length=17,unique=True)
+    type_of = models.CharField(max_length=100, unique=True)
     balance = models.IntegerField()
 
     def withdraw(self, amount):
