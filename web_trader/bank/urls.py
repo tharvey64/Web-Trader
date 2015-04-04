@@ -1,10 +1,10 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from bank.views import ViewAccount, ViewBanker
+from bank.views import ViewAccount, ViewBanker, ViewIndex
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'web_trader.views.home', name='home'),
+    url(r'^$', ViewIndex.as_view(), name='home'),
     # url(r'^blog/', include('blog.urls')),
 	url(r'^view_account/', ViewAccount.as_view(),name='view'),
     # url(r'^withdraw/', LogInView.as_view(),name='view'),
