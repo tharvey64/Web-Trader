@@ -1,7 +1,7 @@
 {% extends "users/base.html" %}
 
     {% block content %}
-	<form name="companies" action="/bank/new_account/" method="POST">
+	<form name="companies" action="/bank/" method="POST">
 	{% csrf_token %}
 		<h3>My name is Mr. Dank. Let's see if we can't set you up.</h3>
 		<p>What type of account will this be?</p>
