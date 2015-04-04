@@ -41,5 +41,5 @@ class RegisterView(View):
             user.password = make_password(user.password)
             user.save()
             request.session['user_id'] = user.id
-            return render("/bank")
+            return redirect("/bank/")
         return redirect("/users/")
