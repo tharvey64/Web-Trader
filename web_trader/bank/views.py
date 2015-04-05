@@ -3,10 +3,8 @@ from django.views.generic import View
 from users.models import User
 from accounts.models import Account
 from bank.models import BankClient, BankAccount
-# from bank.forms import BankForm
 
 # Create your views here.
-
 class ViewNewClient(View):
 	template = 'bank/new_client.html'
 
@@ -57,6 +55,29 @@ class ViewBanker(View):
 		new_b_account.save()
 		return redirect('/bank/')
 
+class ViewWithdraw(View):
+	template = 'bank/withdraw.html'
+
+	def get(self, request):
+		info = BankAccount.objects.filter(client__pk=request.session['bank_client_id'])		
+		return render(request, self.template, {'accounts': info})
+
+	def post(self, request):
+		account = BankAccount.objects.filter(account__number=request.POST['account'])
+		account[0].account.withdraw(int(request.POST['amount']))
+		return redirect('/bank/')
+
+class ViewDeposit(View):
+	template = 'bank/deposit.html'
+
+	def get(self, request):
+		info = BankAccount.objects.filter(client__pk=request.session['bank_client_id'])		
+		return render(request, self.template, {'accounts': info})
+
+	def post(self, request):
+		account = BankAccount.objects.filter(account__number=request.POST['account'])
+		account[0].account.deposit(int(request.POST['amount']))
+		return redirect('/bank/')
 
 
 
