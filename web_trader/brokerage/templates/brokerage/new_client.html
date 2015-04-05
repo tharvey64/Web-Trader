@@ -1,0 +1,9 @@
+{% extends "brokerage/base.html" %}
+
+    {% block content %}
+        <h2>Click here to become a client!</h2>
+        <form name="new_client" action="/brokerage/new_client/" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Submit">
+        </form>
+    {% endblock %}

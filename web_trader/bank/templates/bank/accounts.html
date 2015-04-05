@@ -1,10 +1,11 @@
 {% extends "users/base.html" %}
 
 {% block content %}
-	Accounts list here
-	<!-- {% for post in posts %}
-		<li><a href="{{post.slug}}">{{post.title}}</a></li>
-	{% empty %}
-	fuck
-	{% endfor %} -->
+    <h3>Accounts</h3>
+    <ul>
+        {% for account in accounts %}
+            <li>{{ account }}</li>
+            <!-- <li>{{ account.balance }}</li> -->
+        {% endfor %}
+    </ul>
 {% endblock %}

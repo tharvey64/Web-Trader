@@ -1,0 +1,13 @@
+{% extends "brokerage/base.html" %}
+
+{% block content %}
+    <h3>Accounts</h3>
+    <p>
+        {% for bank_account in accounts %}
+            <ul>
+                <li>Number: {{ bank_account.account.number }}</li>
+                <li>Balance: {{ bank_account.account.balance }}</li>
+            </ul>
+        {% endfor %}
+    </p>
+{% endblock %}
