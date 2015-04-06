@@ -13,11 +13,17 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Account',
             fields=[
+<<<<<<< HEAD
                 ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
                 ('number', models.CharField(max_length=17, unique=True, default=None)),
                 ('balance', models.DecimalField(max_digits=12, decimal_places=2, default=0)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
+=======
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
+                ('number', models.CharField(unique=True, default=None, max_length=17)),
+                ('balance', models.DecimalField(default=0, decimal_places=3, max_digits=12)),
+>>>>>>> connor
             ],
         ),
     ]

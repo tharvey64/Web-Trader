@@ -4,6 +4,9 @@ from bank.views import ViewAccount, ViewBanker, ViewIndex, ViewNewClient, ViewWi
 
 urlpatterns = patterns('',
     # Examples:
+    # TEST
+    url(r'^test/', 'bank.tests.test',name='test'),
+    # ^^^TEST
     url(r'^$', ViewIndex.as_view(), name='home'),
     url(r'^new_client/', ViewNewClient.as_view(),name='new'),
 	url(r'^view_account/', ViewAccount.as_view(),name='view'),

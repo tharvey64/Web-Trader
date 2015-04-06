@@ -9,16 +9,16 @@ class ViewNewClient(View):
 	template = 'bank/new_client.html'
 
 	def get(self,request):
-		current_user = request.session['user_id']	
-		user = User.objects.filter(id=current_user)	
+		current_user = request.session['user_id']
+		user = User.objects.filter(id=current_user)
 		return render(request, self.template, {'user':user})
 
 	def post(self, request):
-		current_user = request.session['user_id']	
-		user = User.objects.filter(id=current_user)	
+		current_user = request.session['user_id']
+		user = User.objects.filter(id=current_user)
 		new_client = BankClient(user=user[0])
 		new_client.save()
-		return redirect('/bank/')		
+		return redirect('/bank/')
 
 class ViewIndex(View):
 	template = 'bank/welcome.html'
@@ -57,7 +57,7 @@ class ViewWithdraw(View):
 	template = 'bank/withdraw.html'
 
 	def get(self, request):
-		info = BankAccount.objects.filter(client__pk=request.session['bank_client_id'])		
+		info = BankAccount.objects.filter(client__pk=request.session['bank_client_id'])
 		return render(request, self.template, {'accounts': info})
 
 	def post(self, request):
@@ -69,7 +69,7 @@ class ViewDeposit(View):
 	template = 'bank/deposit.html'
 
 	def get(self, request):
-		info = BankAccount.objects.filter(client__pk=request.session['bank_client_id'])		
+		info = BankAccount.objects.filter(client__pk=request.session['bank_client_id'])
 		return render(request, self.template, {'accounts': info})
 
 	def post(self, request):
@@ -83,4 +83,3 @@ class ViewTransfer(View):
 	def get(self, request):
 		account = Bank
 		return render(request, self.template)
-

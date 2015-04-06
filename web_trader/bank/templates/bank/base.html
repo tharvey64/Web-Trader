@@ -3,6 +3,7 @@
 {% load staticfiles %}
 <link rel="stylesheet" href="{% static 'bank/main.css' %}">
 <link rel="stylesheet" href="{% static 'bank/reset.css' %}">
+<<<<<<< HEAD
 </head>
 <body>
 <div class = "container">
@@ -22,6 +23,21 @@
       </ul>
     </div>
 
+=======
+<body>
+    <header>
+        {% block header %}
+            <h1>Dank Bank:  'Where dreams become reality!'</h1>
+        {% endblock %}
+    </header>
+    <div class="nav">
+      <ul>
+        <li><a href="/users/">Home</a></li>
+        {% block nav %}
+        {% endblock %}
+      </ul>
+    </div>
+>>>>>>> connor
     <div class = "content">
         {% block content %}
         {% endblock %}
@@ -29,9 +45,17 @@
 
     <footer>
         {% block footer %}
+<<<<<<< HEAD
         Dank Bank©
+=======
+        <h1>Dank Bank©</h1>
+>>>>>>> connor
         {% endblock %}
     </footer>
 </div>
 </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> connor
