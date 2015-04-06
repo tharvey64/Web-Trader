@@ -1,10 +1,10 @@
 {% extends "brokerage/base.html" %}
 
 {% block content %}
-    <h3>Accounts</h3>
+    <h3>Accounts</h3><br></br>
     {% for account in bank_client %}
-        <br></br><li>Account Type: <strong>{{account.type_of}}</strong></li>
-        <li>Account number: {{account.account.number}}</li>
+        <!-- <br></br><li>Account Type: <strong>{{account.type_of}}</strong></li> -->
+        <li>Account Number: {{account.account.number}}</li>
         <li>Account Balance: ${{account.account.balance}}</li><br></br>
     {% empty %}
        <h3>No accounts, yet.</h3>
