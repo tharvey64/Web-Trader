@@ -1,15 +1,30 @@
 {% extends "stocks/base.html" %}
 
 {% block content %}
-    <table>
-    {% for result in search_results %}
-        <h3>result</h3>
-    {% empty %}
+    {% if search_results %}
+        <table id="results">
+            {% for result in search_results %}
+                
+                {% if forloop.first %}
+                    <tr>
+                    {% for key in result %}
+                        <th> {{ key }} </th>
+                    {% endfor %}
+                    </tr>
+                {% endif %}
+                <tr>
+                {% for key,value in result.items %}
+                    <td> {{ value }} </td>
+                {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
         <form name="search" action="/stocks/company_search/" method="POST">
             {% csrf_token %}
             Company Name: <input type="text" name="search_term"><br></br>
             <input type="submit" value="Submit">
         </form>
-    {% endfor %}
-    </table>
+    {% endif %}
+    
 {% endblock %}

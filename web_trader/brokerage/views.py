@@ -64,7 +64,7 @@ class BrokerView(View):
         )
         return redirect('/brokerage/')
 
-class ViewWithdraw(View):
+class WithdrawView(View):
     template = 'brokerage/withdraw.html'
 
     def get(self, request):
@@ -77,7 +77,7 @@ class ViewWithdraw(View):
             success = account[0].account.withdraw(int(request.POST['amount']))
         return redirect('/brokerage/')
 
-class ViewDeposit(View):
+class DepositView(View):
     template = 'brokerage/deposit.html'
 
     def get(self, request):
@@ -104,7 +104,9 @@ class PortfolioView(View):
         transaction_history = Transaction.objects.filter(client__pk=client_id).values('company__symbol').annotate(owned=Sum('quantity')).order_by('owned')
         portfolio = transaction_history.filter(owned__gt=0)
         if len(portfolio) > 0:
-            # add Mrakit call here to get current value
+            for company in portfolio:
+                company['share_price'] = Markit.find_quote(company['company__symbol'])['LastPrice']
+                company['value'] = company['share_price'] * company['owned']
             return render(request, self.template, {'portfolio': portfolio})
         return render(request, self.template)
 
