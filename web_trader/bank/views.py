@@ -62,7 +62,8 @@ class ViewWithdraw(View):
 
 	def post(self, request):
 		account = BankAccount.objects.filter(account__number=request.POST['account'])
-		account[0].account.withdraw(int(request.POST['amount']))
+		if len(account) == 1:
+			account[0].account.withdraw(int(request.POST['amount']))
 		return redirect('/bank/')
 
 class ViewDeposit(View):
@@ -74,13 +75,21 @@ class ViewDeposit(View):
 
 	def post(self, request):
 		account = BankAccount.objects.filter(account__number=request.POST['account'])
-		account[0].account.deposit(int(request.POST['amount']))
+		if len(account) == 1:
+			account[0].account.deposit(int(request.POST['amount']))
 		return redirect('/bank/')
 
 class ViewTransfer(View):
 	template = 'bank/transfer.html'
 
 	def get(self, request):
-		account = Bank
-		return render(request, self.template)
+		info = BankAccount.objects.filter(client__pk=request.session['bank_client_id'])		
+		return render(request, self.template, {'accounts': info})
 
+	def post(self, request):
+		withdraw_from = BankAccount.objects.filter(account__number=request.POST['withdraw'])
+		deposit_to = BankAccount.objects.filter(account__number=request.POST['deposit'])
+		if len(withdraw_from) == 1 and len(deposit_to) == 1:
+			withdraw_from[0].account.withdraw(int(request.POST['amount']))
+			deposit_to[0].account.deposit(int(request.POST['amount']))
+		return redirect('/bank/')

@@ -9,12 +9,11 @@
 	<p>No accounts, yet.<p>
 	{% endfor %}
 
-	<form name="companies" action="/bank/deposit/" method="POST">
+	<form name="companies" action="/bank/transfer/" method="POST">
 	{% csrf_token %}
-		<h3>What shall we deposit today?</h3>
 			<p>Which account would you like to take funds from</p>
-				<input name="deposit" type="text"> 
-			<p>Which account would you like to switch the funds to</p>
+				<input name="withdraw" type="text"> 
+			<p>Which account would you like to transfer the funds to?</p>
 				<input name="deposit" type="text"> 		
 			<p>Please enter the amount</p>
 				<input name="amount" type="text"> 
