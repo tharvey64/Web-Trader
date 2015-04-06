@@ -3,7 +3,6 @@ from users.models import User
 from accounts.models import Account
 
 # Create your models here.
-
 class BankClient(models.Model):
     user = models.ForeignKey(User)
     created_at = models.DateTimeField(auto_now_add=True)
