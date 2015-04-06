@@ -1,11 +1,98 @@
-header{
-    border-bottom: 2px solid black;
+body {
+  position: relative;
 }
 
-h2.title{
-    text-decoration: underline;
+body:after {
+  margin-top:5em;
+  content : "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: url("http://www.returntoorder.org/wp-content/uploads/2012/11/map.jpg");
+  background-size: 100% 100%;
+  width: 100%;
+  height: 100%;
+  opacity : 0.5;
+  z-index: -1;
+}
+
+header {
+    position: absolute;
+    height: 5em;
+    width: 100%;
+    text-align: center;
+  margin-left: 2em;
+}
+
+header:after {
+  content : "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: url("http://i.telegraph.co.uk/multimedia/archive/02692/cash_2692211b.jpg");
+  background-size: 15%;
+  width: 100%;
+  height: 100%;
+  opacity : .6;
+  z-index: -1;
+
+}
+
+header h1 {
+  position: absolute;
+  top: .75em;
+  font-size: 2em;
+  text-align: center;
+  margin-left: 27.5%;
+  font-weight: bold;
+}
+
+.nav {
+    height: 100%;
+    position:  relative;
+  top:5em;
+  clear: both;
+  background-color: white;
+  width: 12.5%;
+  border-right: 2px solid black;
+}
+
+.nav a{
+  padding: .3em;
+  float: left;
+  margin: .5em .5em;
+  font-size: 1.25em;
+  text-decoration: none;
+  border: 1px solid blue;
+}
+
+.content {
+  margin-top: 7em;
+    position: absolute;
+    height: 100%;
+    width: 45%;
+    margin-left: 15%;
 }
 
 footer{
-    border-top: 2px solid black;
+  position:fixed;
+  bottom:0em;
+  height:5em;
+  width:100%;
+  text-align: center;
+  background: black;
+  color:white;
+}
+footer h1{
+  margin-top: 1em;
+  font-size:2em;
+}
+.content h1 {
+  margin-bottom: 1em;
+  font-weight: bold;
+}
+.content form input {
+  margin: .5em;
 }

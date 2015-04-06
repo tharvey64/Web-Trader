@@ -3,6 +3,7 @@
 {% load staticfiles %}
 <link rel="stylesheet" href="{% static 'stocks/main.css' %}">
 <link rel="stylesheet" href="{% static 'stocks/reset.css' %}">
+</head>
 <body>
     <header>
         {% block header %}
@@ -12,9 +13,11 @@
     <div class="nav">
       <ul>
         <!-- Make href a variable that is set to the previous page -->
-        <li><a href="/users/">User Home</a></li>
         {% block nav %}
         {% endblock %}
+        <li><a href="/stocks/">Stock Portal</a></li>
+        <li><a href="/users/home/">User Portal</a></li>
+        <li><a href="/users/">Log Out</a></li>
       </ul>
     </div>
     <div class = "content">
@@ -24,7 +27,7 @@
 
     <footer>
         {% block footer %}
-        <h1>StockPortal©</h1>
+        <h1>Stock Portal©</h1>
         {% endblock %}
     </footer>
 </div>
