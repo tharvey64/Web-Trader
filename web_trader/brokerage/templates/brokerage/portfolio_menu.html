@@ -1,0 +1,13 @@
+{% extends "brokerage/base.html" %}
+
+{% block header %}
+    <h1>Hello {{ user.username }}</h1>
+    <p>What would you like to do today?</p>
+{% endblock %}
+
+{% block nav %}
+    <li><a href="/stocks/">Stock Portal</a></li>
+    <li><a href="/brokerage/portfolio/">View Portfolio</a></li>
+    <li><a href="/brokerage/purchase_stock/">Purchase Stock</a></li>
+    <li><a href="/brokerage/sell_stock/">Sell Stock</a></li>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "brokerage/base.html" %}
+
+{% block content %}
+    {% for item in portfolio %}
+        <h3>Company: {{ item.company__symbol }}</h3>
+        <h3>Shares: {{ item.owned }}</h3><br></br>
+    {% empty %}
+        <h3>Currently your Portfolio is Empty</h3>
+    {% endfor %}
+{% endblock %}
