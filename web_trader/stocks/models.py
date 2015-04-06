@@ -16,14 +16,14 @@ class Markit:
     def find_company(cls, name):
         if not isinstance(name, str):
             return [{'Message':'Error: Invalid Input Type'}]
-        r = requests.get(company_search_url + name).json()
+        r = requests.get(cls.company_search_url + name).json()
         return r
 
     @classmethod
     def find_quote(cls, symbol):
         if not isinstance(symbol, str):
             return {'Message':'Error: Invalid Input Type'}
-        r = requests.get(quote_url + symbol).json()
+        r = requests.get(cls.quote_url + symbol).json()
         return r
 
     # http://finance.yahoo.com/q?s=APPL&ql=1

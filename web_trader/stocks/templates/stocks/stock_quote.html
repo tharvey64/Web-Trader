@@ -1,1 +1,12 @@
 {% extends "stocks/base.html" %}
+{% block content %}
+    {% if stock_quote %}
+        <h3>{{ stock_quote }}</h3>
+    {% else %}
+        <form name="search" action="/stocks/quote/" method="POST">
+            {% csrf_token %}
+            Stock Symbol: <input type="text" name="symbol"><br></br>
+            <input type="submit" value="Submit">
+        </form>
+    {% endif %}
+{% endblock %}

@@ -49,34 +49,39 @@ header h1 {
   font-weight: bold;
 }
 
+.container {
+  width: 100%;
+}
 .nav {
-    height: 100%;
-    position:  relative;
+  height: 100%;
+  position: relative;
+  float: left;
   top:5em;
   clear: both;
-  background-color: white;
-  width: 12.5%;
+  width: 20%;
   border-right: 2px solid black;
 }
 
 .nav a{
   padding: .3em;
-  float: left;
-  margin: .5em .5em;
+  display:block;
+  margin: 1em 1em;
   font-size: 1.25em;
   text-decoration: none;
   border: 1px solid blue;
+  z-index: 1;
 }
 
 .content {
   margin-top: 7em;
-    position: absolute;
-    height: 100%;
-    width: 45%;
-    margin-left: 15%;
+  float:left;
+  height: 100%;
+  width: 45%;
+  margin-left: 15%;
 }
 
 footer{
+  clear:both;
   position:fixed;
   bottom:0em;
   height:5em;
