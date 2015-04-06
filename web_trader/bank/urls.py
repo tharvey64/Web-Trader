@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from bank.views import ViewAccount, ViewBanker, ViewIndex, ViewNewClient, ViewWithdraw, ViewDeposit
+from bank.views import ViewAccount, ViewBanker, ViewIndex, ViewNewClient, ViewWithdraw, ViewDeposit, ViewTransfer
 
 urlpatterns = patterns('',
     # Examples:
@@ -9,7 +9,6 @@ urlpatterns = patterns('',
 	url(r'^view_account/', ViewAccount.as_view(),name='view'),
     url(r'^withdraw/', ViewWithdraw.as_view(),name='withdraw'),
     url(r'^deposit/', ViewDeposit.as_view(),name='deposit'),
-    # url(r'^transfer/', LogInView.as_view(),name='view'),
     url(r'^banker/', ViewBanker.as_view(),name='banker'),
-    url(r'^new_account/', ViewBanker.as_view(),name='new'),
+    url(r'^transfer/', ViewTransfer.as_view(),name='view'),
 )

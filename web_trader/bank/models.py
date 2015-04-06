@@ -3,7 +3,6 @@ from users.models import User
 from accounts.models import Account
 
 # Create your models here.
-
 class BankClient(models.Model):
 	user = models.ForeignKey(User)
 
@@ -13,4 +12,3 @@ class BankAccount(models.Model):
 	type_of = models.CharField(max_length=100)
 
 
-	#derpderpderpderpderpderpderpderp

@@ -79,7 +79,10 @@ class ViewDeposit(View):
 		account[0].account.deposit(int(request.POST['amount']))
 		return redirect('/bank/')
 
+class ViewTransfer(View):
+	template = 'bank/transfer.html'
 
-
-
+	def get(self, request):
+		account = Bank
+		return render(request, self.template)
 

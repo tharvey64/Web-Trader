@@ -4,7 +4,7 @@ from django.db import models
 
 class Account(models.Model):
     number = models.CharField(max_length=17,unique=True,default=None)
-    balance = models.DecimalField(max_digits=12,decimal_places=3,default=0)
+    balance = models.DecimalField(max_digits=12,decimal_places=2,default=0)
 
     def withdraw(self, amount):
         if amount > self.balance:

@@ -1,10 +1,10 @@
-{% extends "users/base.html" %}
+{% extends "bank/base.html" %}
 
 {% block content %}
 	{% for account in bank_client %}
 		<br></br><li>Account Type: <strong>{{account.type_of}}</strong></li>
 		<li>Account number: {{account.account.number}}</li>
-		<li>Account Balance: {{account.account.balance}}</li><br></br>
+		<li>Account Balance: ${{account.account.balance}}</li><br></br>
 	{% empty %}
 	No accounts, yet.
 	{% endfor %}
