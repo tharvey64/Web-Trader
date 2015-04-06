@@ -1,7 +1,6 @@
 <html>
 <head>
 {% load staticfiles %}
-<<<<<<< HEAD
 <link rel="stylesheet" href="{% static 'brokerage/main.css' %}">
 <link rel="stylesheet" href="{% static 'brokerage/reset.css' %}">
 </head>
@@ -10,30 +9,25 @@
     <header>
         {% block header %}
             <h1>Brokerage Portal</h1>
-=======
 <link rel="stylesheet" href="{% static 'users/main.css' %}">
 <link rel="stylesheet" href="{% static 'users/reset.css' %}">
 <body>
     <header>
         {% block header %}
             <h1>Dank Bank:  'Where dreams become reality!'</h1>
->>>>>>> connor
         {% endblock %}
     </header>
     <div class="nav">
       <ul>
-<<<<<<< HEAD
         <!-- Make href a variable that is set to the previous page -->
         {% block nav %}
         {% endblock %}
         <li class="jump"><a href="/brokerage/">Brokerage Portal</a></li>
         <li class="jump"><a href="/users/home/">User Portal</a></li>
         <li class="jump"><a href="/users/">Log Out</a></li>
-=======
         <li><a href="/users/">Home</a></li>
         {% block nav %}
         {% endblock %}
->>>>>>> connor
       </ul>
     </div>
     <div class = "content">
@@ -43,17 +37,10 @@
 
     <footer>
         {% block footer %}
-<<<<<<< HEAD
         <h1>Brokerage Portal©</h1>
-=======
         <h1>Dank Bank©</h1>
->>>>>>> connor
         {% endblock %}
     </footer>
 </div>
 </body>
-<<<<<<< HEAD
 </html>
-=======
-</html>
->>>>>>> connor
