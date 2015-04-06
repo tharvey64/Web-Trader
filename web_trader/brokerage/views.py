@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
+from django.db.models import Sum
 from users.models import User
 from accounts.models import Account
-from brokerage.models import BrokerageClient, BrokerageAccount
-# from brokerage.forms import BankForm.
+from brokerage.models import BrokerageClient, BrokerageAccount, Transaction
+from stocks.models import Company,Markit
+# from bank.forms import BankForm.
 
 class IndexView(View):
     template = 'brokerage/index.html'
@@ -31,16 +33,20 @@ class NewClientView(View):
         user = User.objects.get(id=current_user) 
         new_client = BrokerageClient.objects.create(user=user)
         return redirect('/brokerage/')       
+ 
+class AccountMenuView(View):
+    template = 'brokerage/account_menu.html'
 
-#Empty 
+    def get(self, request):
+        return render(request, self.template)
+
 class AccountView(View):
     template = 'brokerage/accounts.html'
 
     def get(self, request):
         client_id = request.session['brokerage_client_id']
         accounts = BrokerageAccount.objects.filter(client__pk=client_id)
-        print(accounts)
-        return render(request, self.template, {'accounts': accounts})
+        return render(request, self.template, {'bank_client': accounts})
 
 class BrokerView(View):
     template = 'brokerage/create_account.html'
@@ -54,7 +60,8 @@ class BrokerView(View):
         new_account = Account.objects.create()
         brokerage_account = BrokerageAccount.objects.create(
             client=client,
-            account=new_account)
+            account=new_account
+        )
         return redirect('/brokerage/')
 
 class ViewWithdraw(View):
@@ -67,7 +74,7 @@ class ViewWithdraw(View):
     def post(self, request):
         account = BrokerageAccount.objects.filter(account__number=request.POST['account'])
         if len(account) == 1:
-            account[0].account.withdraw(int(request.POST['amount']))
+            success = account[0].account.withdraw(int(request.POST['amount']))
         return redirect('/brokerage/')
 
 class ViewDeposit(View):
@@ -82,3 +89,67 @@ class ViewDeposit(View):
         if len(account) == 1:
             account[0].account.deposit(int(request.POST['amount']))
         return redirect('/brokerage/')        
+
+class PortfolioMenuView(View):
+    template = 'brokerage/portfolio_menu.html'
+    
+    def get(self, request):
+        return render(request, self.template)
+
+class PortfolioView(View):
+    template = 'brokerage/portfolio.html'
+
+    def get(self, request):
+        client_id = request.session['brokerage_client_id']
+        transaction_history = Transaction.objects.filter(client__pk=client_id).values('company__symbol').annotate(owned=Sum('quantity')).order_by('owned')
+        portfolio = transaction_history.filter(owned__gt=0)
+        if len(portfolio) > 0:
+            # add Mrakit call here to get current value
+            return render(request, self.template, {'portfolio': portfolio})
+        return render(request, self.template)
+
+class PurchaseView(View):
+    template = 'brokerage/purchase.html'
+
+    def get(self, request):
+        client_id = request.session['brokerage_client_id']
+        accounts = BrokerageAccount.objects.filter(client__pk=client_id)
+        return render(request, self.template, {'accounts': accounts})
+
+    def post(self, request):
+        symbol = request.POST['symbol']
+        quote = Markit.find_quote(symbol)
+        if 'Message' not in quote:
+            quantity = int(request.POST['quantity'])
+            total_value = int(quote['LastPrice']) * quantity
+            account = BrokerageAccount.objects.get(client__pk=client_id)
+            if account.withdraw(total_value):
+                client = BrokerageClient.objects.get(id=request.session['brokerage_client_id'])
+                company,created = Company.objects.get_or_create(symbol=quote['Symbol'],name=quote['Name'])
+                transaction = Transaction.objects.create(company=company,client=client,quantity=quantity,share_price=int(quote['LastPrice']))
+                return render(request, self.template, {'transaction': transaction})
+        return redirect(request, self.template)
+        # return redirect(request, self.template,{'transaction': quote['Message']})
+
+class SellView(View):
+    template = 'brokerage/sell.html'
+
+    def get(self, request):
+        client_id = request.session['brokerage_client_id']
+        accounts = BrokerageAccount.objects.filter(client__pk=client_id)
+        return render(request, self.template, {'accounts': accounts})
+
+    def post(self, request):
+        symbol = request.POST['symbol']
+        quote = Markit.find_quote(symbol)
+        if 'Message' not in quote:
+            quantity = int(request.POST['quantity'])
+            total_value = int(quote['LastPrice']) * quantity
+            account = BrokerageAccount.objects.get(client__pk=client_id)
+            if account.deposit(total_value):
+                client = BrokerageClient.objects.get(id=request.session['brokerage_client_id'])
+                company,created = Company.objects.get_or_create(symbol=quote['Symbol'],name=quote['Name'])
+                transaction = Transaction.objects.create(company=company,client=client,quantity=-quantity,share_price=int(quote['LastPrice']))
+                return render(request, self.template, {'transaction': transaction})
+        return redirect(request, self.template)
+        # return render(request, self.template,{'transaction': quote['Message']})

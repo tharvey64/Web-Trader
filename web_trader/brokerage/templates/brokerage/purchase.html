@@ -1,0 +1,37 @@
+{% extends "brokerage/base.html" %}
+{% block content %}
+    {% if transaction %}
+        <table>
+            <tr>
+                <th>Company</th>
+                <th>Client</th>
+                <th>Quantity</th>
+                <th>Share Price</th>
+                <th>Date</th>
+            </tr>
+            <tr>
+                <td>{{ transaction.company.name }}</td>
+                <td>{{ transaction.client.user.username }}</td>
+                <td>{{ transaction.quantity }}</td>
+                <td>{{ transaction.share_price }}</td>
+                <td>{{ transaction.created_at }}</td>
+            </tr>
+        </table>
+    {% else %}
+            <h3>Accounts</h3><br></br>
+        {% for account in accounts %}
+            <!-- <br></br><li>Account Type: <strong>{{account.type_of}}</strong></li> -->
+            <li>Account Number: {{account.account.number}}</li>
+            <li>Account Balance: ${{account.account.balance}}</li><br></br>
+        {% endfor %}
+        <form name="purchase" action="/brokerage/purchase_stock/" method="POST">
+            <p>Enter the Stock and the quantity you would like to purchase.</p>
+            <p>Also enter the account number you would like to withdraw the money from.</p>
+            {% csrf_token %}
+            Stock Symbol:<br></br><input type="text" name="symbol"><br></br>
+            Quantity:<br></br><input type="text" name="quantity"><br></br>
+            Account Number:<br></br><input type="text" name="account_num"><br></br>
+            <input type="submit" value="Purchase">
+        </form>
+    {% endif %}
+{% endblock %}

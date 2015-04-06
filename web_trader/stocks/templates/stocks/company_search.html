@@ -1,8 +1,9 @@
 {% extends "stocks/base.html" %}
 
 {% block content %}
+    <table>
     {% for result in search_results %}
-        <h3>{{ result }}</h3>
+        <h3>result</h3>
     {% empty %}
         <form name="search" action="/stocks/company_search/" method="POST">
             {% csrf_token %}
@@ -10,4 +11,5 @@
             <input type="submit" value="Submit">
         </form>
     {% endfor %}
+    </table>
 {% endblock %}
