@@ -51,17 +51,21 @@ header h1 {
 
 .nav {
 	height: 100%;
-	position:  absolute;
+	position:  relative;
   top:5em;
-	float: left;
+  clear: both;
   background-color: white;
-  width: 10%;
-  border-right: 1px solid black;
+  width: 12.5%;
+  border-right: 2px solid black;
 }
+
 .nav a{
-  margin-top: 3em;
-  margin-left: .5em;
-  font-size: 1.5em;
+  padding: .3em;
+  float: left;
+  margin: .5em .5em;
+  font-size: 1.25em;
+  text-decoration: none;
+  border: 1px solid blue;
 }
 
 .content {
