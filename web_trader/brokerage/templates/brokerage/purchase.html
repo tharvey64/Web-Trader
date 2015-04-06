@@ -1,0 +1,29 @@
+{% extends "brokerage/base.html" %}
+{% block content %}
+    {% if transaction %}
+        <table>
+            <tr>
+                <th>Company</th>
+                <th>Client</th>
+                <th>Quantity</th>
+                <th>Share Price</th>
+                <th>Date</th>
+            </tr>
+            <tr>
+                <td>{{ transaction.company.name }}</td>
+                <td>{{ transaction.client.user.username }}</td>
+                <td>{{ transaction.quantity }}</td>
+                <td>{{ transaction.share_price }}</td>
+                <td>{{ transaction.created_at }}</td>
+            </tr>
+        </table>
+    {% else %}
+        <form name="purchase" action="/brokerage/purchase_stock/" method="POST">
+            <p>Enter the Stock and the quantity you would like to purchase.</p>
+            {% csrf_token %}
+            Stock Symbol: <input type="text" name="symbol"><br></br>
+            Quantity: <input type="text" name="quantity"><br></br>
+            <input type="submit" value="Purchase">
+        </form>
+    {% endif %}
+{% endblock %}

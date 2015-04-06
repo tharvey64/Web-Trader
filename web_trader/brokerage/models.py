@@ -19,5 +19,5 @@ class Transaction(models.Model):
     company = models.ForeignKey(Company)
     client = models.ForeignKey(BrokerageClient)
     quantity = models.IntegerField()
-    unit_price = models.DecimalField(max_digits=12,decimal_places=3)
+    share_price = models.DecimalField(max_digits=12,decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True)
