@@ -1,0 +1,24 @@
+{% extends "bank/base.html" %}
+
+{% block content %}
+	{% for account in accounts %}
+		<br></br><li>Account Type: <strong>{{account.type_of}}</strong></li>
+		<li>Account number: {{account.account.number}}</li>
+		<li>Account Balance: ${{account.account.balance}}</li><br></br>
+	{% empty %}
+	<p>No accounts, yet.<p>
+	{% endfor %}
+
+	<form name="companies" action="/bank/deposit/" method="POST">
+	{% csrf_token %}
+		<h3>What shall we deposit today?</h3>
+			<p>Which account would you like to take funds from</p>
+				<input name="deposit" type="text"> 
+			<p>Which account would you like to switch the funds to</p>
+				<input name="deposit" type="text"> 		
+			<p>Please enter the amount</p>
+				<input name="amount" type="text"> 
+		<input type="submit" value="submit">
+	</form>   
+
+{% endblock %}

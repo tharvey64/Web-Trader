@@ -1,16 +1,16 @@
-{% extends "users/base.html" %}
+{% extends "bank/base.html" %}
 
 {% block header %}
     <h1>Hello {{ user.username }}</h1>
     <p>What would you like to do today?</p>
 {% endblock %}
 
-{% block content %}
-    <a href="/bank/view_account/">View Account</a><br></br>
-    <a href="/bank/withdraw/">Withdraw</a><br></br>
-    <a href="/bank/depost/">Deposit</a><br></br>
-    <a href="/bank/transfer/">Transfer</a><br></br>
-    <a href="/bank/banker/">Speak to a rep</a><br></br>   
+{% block nav %}
+    <li><a href="/bank/view_account/">View Account</a></li>
+    <li><a href="/bank/withdraw/">Withdraw</a></li>
+    <li><a href="/bank/deposit/">Deposit</a></li>
+    <li><a href="/bank/transfer/">Transfer</a></li>
+    <li><a href="/bank/banker/">Speak to a rep</a></li>   
 {% endblock %}
 
 

@@ -23,10 +23,13 @@ class LogInView(View):
         username = request.POST['username']
         password = request.POST['password']
         users = User.objects.all().filter(username=username)
-        if len(users) == 1 and check_password(password,users[0].password):
-            request.session['user_id'] = users[0].id
-            return render(request, 'users/welcome.html', {'user': users[0]})
-        return redirect("/users/")
+        if len(users) == 1:
+            if check_password(password,users[0].password):
+                request.session.flush()
+                request.session['user_id'] = users[0].id
+                return render(request, 'users/welcome.html', {'user': users[0]})
+        else:
+            return redirect("/users/")
 
 class RegisterView(View):
     template = 'users/register.html'
@@ -41,6 +44,18 @@ class RegisterView(View):
             user = user_info.save(commit=False)
             user.password = make_password(user.password)
             user.save()
+            request.session.flush()
             request.session['user_id'] = user.id
             return render(request, 'users/welcome.html', {'user': user})
         return redirect("/users/")
+
+class UserView(View):
+    template = 'users/welcome.html'
+
+    def get(self, request):
+        return render(request, self.template)
+
+
+
+
+

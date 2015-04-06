@@ -3,7 +3,9 @@ from django.db import models
 
 class Account(models.Model):
     number = models.CharField(max_length=17,unique=True,default=None)
-    balance = models.DecimalField(max_digits=12,decimal_places=3,default=0)
+    balance = models.DecimalField(max_digits=12,decimal_places=2,default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def withdraw(self, amount):
         if amount > self.balance:
@@ -23,7 +25,7 @@ class Account(models.Model):
         new_number = ''
         while not new_number:
             new_number = str(uuid.uuid4().int)[:17]
-            if cls.objects.filter(number=new_number):
+            if Account.objects.filter(number=new_number):
                 new_number = ''
         return new_number
 

@@ -1,0 +1,9 @@
+{% extends "brokerage/base.html" %}
+
+    {% block content %}
+        <form name="account" action="/brokerage/new_account/" method="POST">
+            {% csrf_token %}
+            <h3>My name is Mr. Madoff. Let's see if we can't set you up.</h3>
+            <input type="submit" value="Submit">
+        </form>
+    {% endblock %}

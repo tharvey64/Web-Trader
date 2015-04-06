@@ -13,9 +13,11 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Account',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
-                ('number', models.CharField(max_length=17, unique=True)),
-                ('balance', models.IntegerField()),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
+                ('number', models.CharField(max_length=17, unique=True, default=None)),
+                ('balance', models.DecimalField(max_digits=12, decimal_places=2, default=0)),
+                ('created_at', models.DateTimeField(auto_now_add=True)),
+                ('updated_at', models.DateTimeField(auto_now=True)),
             ],
         ),
     ]

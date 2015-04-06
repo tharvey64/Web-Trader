@@ -2,14 +2,23 @@
 <head>
 {% load staticfiles %}
 <link rel="stylesheet" href="{% static 'users/main.css' %}">
+<link rel="stylesheet" href="{% static 'users/reset.css' %}">
 </head>
 <body>
 <div class = "container">
     <header>
         {% block header %}
-            <h1>Dank Bank <i>'Where dreams become reality!'</i></h1>
+            <h1>Dank Inc. <i>'Where dreams become reality!'</i></h1>
         {% endblock %}
     </header>
+
+    <div class="nav">
+      <ul>
+        <!-- Make href a variable that is set to the previous page -->
+        {% block nav %}
+        {% endblock %}
+      </ul>
+    </div>
 
     <div class = "content">
         {% block content %}
@@ -18,7 +27,7 @@
 
     <footer>
         {% block footer %}
-        Dank Bank©
+            Dank Inc©
         {% endblock %}
     </footer>
 </div>

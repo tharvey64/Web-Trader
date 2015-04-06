@@ -1,0 +1,36 @@
+<html>
+<head>
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'stocks/main.css' %}">
+<link rel="stylesheet" href="{% static 'stocks/reset.css' %}">
+</head>
+<body>
+<div class = "container">
+    <header>
+        {% block header %}
+            <h1>Stock Portal</h1>
+        {% endblock %}
+    </header>
+    <div class="nav">
+      <ul>
+        <!-- Make href a variable that is set to the previous page -->
+        {% block nav %}
+        {% endblock %}
+        <li class="jump"><a href="/stocks/">Stock Portal</a></li>
+        <li class="jump"><a href="/users/home/">User Portal</a></li>
+        <li class="jump"><a href="/users/">Log Out</a></li>
+      </ul>
+    </div>
+    <div class = "content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <footer>
+        {% block footer %}
+        <h1>Stock Portal©</h1>
+        {% endblock %}
+    </footer>
+</div>
+</body>
+</html>
