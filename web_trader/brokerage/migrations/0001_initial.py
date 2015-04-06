@@ -7,23 +7,39 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('users', '0001_initial'),
         ('accounts', '0001_initial'),
-        ('users', '0002_auto_20150403_2218'),
+        ('stocks', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
             name='BrokerageAccount',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
+                ('created_at', models.DateTimeField(auto_now_add=True)),
+                ('updated_at', models.DateTimeField(auto_now=True)),
                 ('account', models.ForeignKey(to='accounts.Account')),
             ],
         ),
         migrations.CreateModel(
             name='BrokerageClient',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
+                ('created_at', models.DateTimeField(auto_now_add=True)),
+                ('updated_at', models.DateTimeField(auto_now=True)),
                 ('user', models.ForeignKey(to='users.User')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Transaction',
+            fields=[
+                ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
+                ('quantity', models.IntegerField()),
+                ('unit_price', models.DecimalField(max_digits=12, decimal_places=3)),
+                ('created_at', models.DateTimeField(auto_now_add=True)),
+                ('client', models.ForeignKey(to='brokerage.BrokerageClient')),
+                ('company', models.ForeignKey(to='stocks.Company')),
             ],
         ),
         migrations.AddField(

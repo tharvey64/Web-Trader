@@ -5,6 +5,19 @@ from accounts.models import Account
 from brokerage.models import BrokerageClient, BrokerageAccount
 # from bank.forms import BankForm.
 
+class IndexView(View):
+    template = 'brokerage/index.html'
+
+    def get(self,request):
+        brokerage_client = BrokerageClient.objects.filter(
+            user__pk=request.session['user_id']
+        )
+        if len(brokerage_client) == 1:
+            user = User.objects.get(id=request.session['user_id'])
+            request.session['brokerage_client_id'] = brokerage_client[0].id
+            return render(request, self.template, {'user':user})
+        return redirect('new_client/')
+
 class NewClientView(View):
     template = 'brokerage/new_client.html'
 
@@ -19,18 +32,6 @@ class NewClientView(View):
         new_client = BrokerageClient.objects.create(user=user)
         return redirect('/brokerage/')       
 
-class IndexView(View):
-    template = 'brokerage/index.html'
-
-    def get(self,request):
-        brokerage_client = BrokerageClient.objects.filter(
-            user__pk=request.session['user_id']
-        )
-        if len(brokerage_client) == 1:
-            user = User.objects.get(id=request.session['user_id'])
-            request.session['brokerage_client_id'] = brokerage_client[0].id
-            return render(request, self.template, {'user':user})
-        return redirect('new_client/')
 #Empty 
 class AccountView(View):
     template = 'brokerage/accounts.html'

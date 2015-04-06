@@ -5,10 +5,11 @@
     <p>What would you like to do today?</p>
 {% endblock %}
 
-{% block content %}
-    <a href="/brokerage/account_view/">Account View</a><br></br>
-    <a href="/brokerage/withdraw/">Withdraw</a><br></br>
-    <a href="/brokerage/depost/">Deposit</a><br></br>
-    <a href="/brokerage/transfer/">Transfer</a><br></br>
-    <a href="/brokerage/new_account/">Speak to a rep</a><br></br>   
+{% block nav %}
+    <li><a href="/stocks/">Stock Portal</a></li>
+    <li><a href="/brokerage/account_view/">Account View</a></li>
+    <li><a href="/brokerage/withdraw/">Withdraw</a></li>
+    <li><a href="/brokerage/depost/">Deposit</a></li>
+    <li><a href="/brokerage/transfer/">Transfer</a></li>
+    <li><a href="/brokerage/new_account/">Speak to a rep</a></li>   
 {% endblock %}
