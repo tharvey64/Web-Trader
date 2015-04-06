@@ -33,8 +33,6 @@ class Markit:
 
     # @classmethod
     # def market_news(cls,**kwargs):
-        
+
     # @classmethod
     # def security_news(cls,**kwargs):
-
-
