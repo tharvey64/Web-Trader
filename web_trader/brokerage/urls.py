@@ -1,9 +1,13 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from users.views import MainView, LogInView, RegisterView
+from brokerage.views import IndexView,NewClientView,AccountView,BrokerView
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'web_trader.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
+    url(r'^$', IndexView.as_view(), name='home'),
+    url(r'^new_client/', NewClientView.as_view(),name='new_client'),
+    url(r'^account_view/', AccountView.as_view(),name='accounts_view'),
+    # url(r'^withdraw/', LogInView.as_view(),name='view'),
+    # url(r'^deposit/', LogInView.as_view(),name='view'),
+    # url(r'^transfer/', LogInView.as_view(),name='view'),
+    url(r'^new_account/', BrokerView.as_view(),name='new_account'),
 )

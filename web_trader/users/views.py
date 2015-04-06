@@ -49,6 +49,12 @@ class RegisterView(View):
             return render(request, 'users/welcome.html', {'user': user})
         return redirect("/users/")
 
+class UserView(View):
+    template = 'users/welcome.html'
+
+    def get(self, request):
+        return render(request, self.template)
+
 
 
 

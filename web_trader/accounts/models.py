@@ -1,10 +1,11 @@
 import uuid
 from django.db import models
-# Does not work with migrations
 
 class Account(models.Model):
     number = models.CharField(max_length=17,unique=True,default=None)
     balance = models.DecimalField(max_digits=12,decimal_places=2,default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def withdraw(self, amount):
         if amount > self.balance:

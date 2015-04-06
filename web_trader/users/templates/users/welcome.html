@@ -3,8 +3,7 @@
     <h1>Hello {{ user.username }}</h1>
 {% endblock %}
 
-
-{% block content %}
-    <a href="/bank/">Enter Bank</a><br></br>
-    <a href="/brokerage/">Enter Brokerage</a><br></br> 
+{% block nav %}
+    <li><a href="/bank/">Enter Bank</a></li>
+    <a href="/brokerage/">Enter Brokerage</a></li> 
 {% endblock %}
