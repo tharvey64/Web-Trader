@@ -22,14 +22,13 @@ class LogInView(View):
     def post(self, request):
         username = request.POST['username']
         password = request.POST['password']
-        users = User.objects.all().filter(username=username)
+        users = User.objects.filter(username=username)
         if len(users) == 1:
             if check_password(password,users[0].password):
                 request.session.flush()
                 request.session['user_id'] = users[0].id
                 return render(request, 'users/welcome.html', {'user': users[0]})
-        else:
-            return redirect("/users/")
+        return redirect("/users/")
 
 class RegisterView(View):
     template = 'users/register.html'

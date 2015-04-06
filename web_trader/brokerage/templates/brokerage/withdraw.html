@@ -1,4 +1,4 @@
-{% extends "bank/base.html" %}
+{% extends "brokerage/base.html" %}
 
 {% block content %}
 	{% for account in accounts %}
@@ -6,15 +6,14 @@
 		<li>Account number: {{account.account.number}}</li>
 		<li>Account Balance: ${{account.account.balance}}</li><br></br>
 	{% empty %}
-	<p>No accounts, yet.<p>
+	No accounts, yet.
 	{% endfor %}
 
-	<form name="companies" action="/bank/transfer/" method="POST">
+	<form name="companies" action="/bank/withdraw/" method="POST">
 	{% csrf_token %}
-			<p>Which account would you like to take funds from</p>
-				<input name="withdraw" type="text"> 
-			<p>Which account would you like to transfer the funds to?</p>
-				<input name="deposit" type="text"> 		
+		<h3>What shall we withdraw today?</h3>
+			<p>Please enter the account number</p>
+				<input name="account" type="text"> 
 			<p>Please enter the amount</p>
 				<input name="amount" type="text"> 
 		<input type="submit" value="submit">

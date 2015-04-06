@@ -46,7 +46,6 @@ class AccountView(View):
     def get(self, request):
         client_id = request.session['brokerage_client_id']
         accounts = BrokerageAccount.objects.filter(client__pk=client_id)
-        print(accounts)
         return render(request, self.template, {'bank_client': accounts})
 
 class BrokerView(View):
@@ -57,14 +56,39 @@ class BrokerView(View):
 
     def post(self, request):
         client = BrokerageClient.objects.get(
-            id=request.session['brokerage_client_id']
-        )
+            id=request.session['brokerage_client_id'])
         new_account = Account.objects.create()
         brokerage_account = BrokerageAccount.objects.create(
             client=client,
             account=new_account
         )
         return redirect('/brokerage/')
+
+class ViewWithdraw(View):
+    template = 'brokerage/withdraw.html'
+
+    def get(self, request):
+        info = BrokerageAccount.objects.filter(client__pk=request.session['brokerage_client_id'])     
+        return render(request, self.template, {'accounts': info})
+
+    def post(self, request):
+        account = BrokerageAccount.objects.filter(account__number=request.POST['account'])
+        if len(account) == 1:
+            success = account[0].account.withdraw(int(request.POST['amount']))
+        return redirect('/brokerage/')
+
+class ViewDeposit(View):
+    template = 'brokerage/deposit.html'
+
+    def get(self, request):
+        info = BrokerageAccount.objects.filter(client__pk=request.session['brokerage_client_id'])     
+        return render(request, self.template, {'accounts': info})
+
+    def post(self, request):
+        account = BrokerageAccount.objects.filter(account__number=request.POST['account'])
+        if len(account) == 1:
+            account[0].account.deposit(int(request.POST['amount']))
+        return redirect('/brokerage/')        
 
 class PortfolioMenuView(View):
     template = 'brokerage/portfolio_menu.html'
@@ -88,7 +112,9 @@ class PurchaseView(View):
     template = 'brokerage/purchase.html'
 
     def get(self, request):
-        return render(request, self.template)
+        client_id = request.session['brokerage_client_id']
+        accounts = BrokerageAccount.objects.filter(client__pk=client_id)
+        return render(request, self.template, {'accounts': accounts})
 
     def post(self, request):
         symbol = request.POST['symbol']
@@ -96,11 +122,12 @@ class PurchaseView(View):
         if 'Message' not in quote:
             quantity = int(request.POST['quantity'])
             total_value = int(quote['LastPrice']) * quantity
-            # Checkbalance
-            client = BrokerageClient.objects.get(id=request.session['brokerage_client_id'])
-            company,created = Company.objects.get_or_create(symbol=quote['Symbol'],name=quote['Name'])
-            transaction = Transaction.objects.create(company=company,client=client,quantity=quantity,share_price=int(quote['LastPrice']))
-            return render(request, self.template, {'transaction': transaction})
+            account = BrokerageAccount.objects.get(client__pk=client_id)
+            if account.withdraw(total_value):
+                client = BrokerageClient.objects.get(id=request.session['brokerage_client_id'])
+                company,created = Company.objects.get_or_create(symbol=quote['Symbol'],name=quote['Name'])
+                transaction = Transaction.objects.create(company=company,client=client,quantity=quantity,share_price=int(quote['LastPrice']))
+                return render(request, self.template, {'transaction': transaction})
         return redirect(request, self.template)
         # return redirect(request, self.template,{'transaction': quote['Message']})
 
@@ -108,7 +135,9 @@ class SellView(View):
     template = 'brokerage/sell.html'
 
     def get(self, request):
-        return render(request, self.template)
+        client_id = request.session['brokerage_client_id']
+        accounts = BrokerageAccount.objects.filter(client__pk=client_id)
+        return render(request, self.template, {'accounts': accounts})
 
     def post(self, request):
         symbol = request.POST['symbol']
@@ -116,10 +145,11 @@ class SellView(View):
         if 'Message' not in quote:
             quantity = int(request.POST['quantity'])
             total_value = int(quote['LastPrice']) * quantity
-            # Check balance
-            client = BrokerageClient.objects.get(id=request.session['brokerage_client_id'])
-            company,created = Company.objects.get_or_create(symbol=quote['Symbol'],name=quote['Name'])
-            transaction = Transaction.objects.create(company=company,client=client,quantity=-quantity,share_price=int(quote['LastPrice']))
-            return render(request, self.template, {'transaction': transaction})
+            account = BrokerageAccount.objects.get(client__pk=client_id)
+            if account.deposit(total_value):
+                client = BrokerageClient.objects.get(id=request.session['brokerage_client_id'])
+                company,created = Company.objects.get_or_create(symbol=quote['Symbol'],name=quote['Name'])
+                transaction = Transaction.objects.create(company=company,client=client,quantity=-quantity,share_price=int(quote['LastPrice']))
+                return render(request, self.template, {'transaction': transaction})
         return redirect(request, self.template)
         # return render(request, self.template,{'transaction': quote['Message']})
