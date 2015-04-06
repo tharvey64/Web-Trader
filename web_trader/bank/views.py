@@ -26,17 +26,15 @@ class ViewIndex(View):
 	def get(self,request):
 		bank_client = BankClient.objects.filter(user__pk=request.session['user_id'])
 		if len(bank_client) == 1:
-			user = User.objects.get(id=request.session['user_id'])
 			request.session['bank_client_id'] = bank_client[0].id
-			return render(request, self.template, {'user':user})
+			return render(request, self.template, {'user': bank_client[0].user})
 		return redirect('new_client/')
 
 class ViewAccount(View):
 	template = 'bank/accounts.html'
 
 	def get(self, request):
-		user = User.objects.filter(id=request.session['user_id'])
-		info = BankAccount.objects.filter(client = user)
+		info = BankAccount.objects.filter(client__pk = request.session['bank_client_id'])
 		return render(request, self.template, {'bank_client':info})
 
 class ViewBanker(View):

@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="{% static 'brokerage/reset.css' %}">
 </head>
 <body>
+<div class = "container">
     <header>
         {% block header %}
             <h1>Brokerage Portal</h1>
@@ -15,9 +16,9 @@
         <!-- Make href a variable that is set to the previous page -->
         {% block nav %}
         {% endblock %}
-        <li><a href="/brokerage/">Brokerage Portal</a></li>
-        <li><a href="/users/home/">User Portal</a></li>
-        <li><a href="/users/">Log Out</a></li>
+        <li class="jump"><a href="/brokerage/">Brokerage Portal</a></li>
+        <li class="jump"><a href="/users/home/">User Portal</a></li>
+        <li class="jump"><a href="/users/">Log Out</a></li>
       </ul>
     </div>
     <div class = "content">

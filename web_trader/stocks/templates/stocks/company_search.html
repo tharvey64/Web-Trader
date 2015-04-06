@@ -1,1 +1,13 @@
 {% extends "stocks/base.html" %}
+
+{% block content %}
+    {% for result in search_results %}
+        <h3>{{ result }}</h3>
+    {% empty %}
+        <form name="search" action="/stocks/company_search/" method="POST">
+            {% csrf_token %}
+            Company Name: <input type="text" name="search_term"><br></br>
+            <input type="submit" value="Submit">
+        </form>
+    {% endfor %}
+{% endblock %}
