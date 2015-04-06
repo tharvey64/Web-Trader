@@ -3,7 +3,7 @@ from django.views.generic import View
 from users.models import User
 from accounts.models import Account
 from brokerage.models import BrokerageClient, BrokerageAccount
-# from bank.forms import BankForm.
+# from brokerage.forms import BankForm.
 
 class IndexView(View):
     template = 'brokerage/index.html'
@@ -50,11 +50,35 @@ class BrokerView(View):
 
     def post(self, request):
         client = BrokerageClient.objects.get(
-            id=request.session['brokerage_client_id']
-        )
+            id=request.session['brokerage_client_id'])
         new_account = Account.objects.create()
         brokerage_account = BrokerageAccount.objects.create(
             client=client,
-            account=new_account
-        )
+            account=new_account)
         return redirect('/brokerage/')
+
+class ViewWithdraw(View):
+    template = 'brokerage/withdraw.html'
+
+    def get(self, request):
+        info = BrokerageAccount.objects.filter(client__pk=request.session['brokerage_client_id'])     
+        return render(request, self.template, {'accounts': info})
+
+    def post(self, request):
+        account = BrokerageAccount.objects.filter(account__number=request.POST['account'])
+        if len(account) == 1:
+            account[0].account.withdraw(int(request.POST['amount']))
+        return redirect('/brokerage/')
+
+class ViewDeposit(View):
+    template = 'brokerage/deposit.html'
+
+    def get(self, request):
+        info = BrokerageAccount.objects.filter(client__pk=request.session['brokerage_client_id'])     
+        return render(request, self.template, {'accounts': info})
+
+    def post(self, request):
+        account = BrokerageAccount.objects.filter(account__number=request.POST['account'])
+        if len(account) == 1:
+            account[0].account.deposit(int(request.POST['amount']))
+        return redirect('/brokerage/')        
