@@ -1,10 +1,26 @@
 {% extends "brokerage/base.html" %}
 
 {% block content %}
-    {% for item in portfolio %}
-        <h3>Company: {{ item.company__symbol }}</h3>
-        <h3>Shares: {{ item.owned }}</h3><br></br>
-    {% empty %}
-        <h3>Currently your Portfolio is Empty</h3>
-    {% endfor %}
+    {% if portfolio %}
+        <table id="results">
+            {% for item in portfolio %}
+                {% if forloop.first %}
+                    <tr>
+                        <th>Company</th>
+                        <th>Shares</th>
+                        <th>Share Price</th>
+                        <th>Current Value</th>
+                    </tr>
+                {% endif %}
+                <tr>
+                    <td>{{ item.company__symbol }}</td>
+                    <td>{{ item.owned }}</td>
+                    <td>${{ item.share_price }}</td>
+                    <td>${{ item.value }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <h3>Your Portfolio is Empty</h3>
+    {% endif %}
 {% endblock %}

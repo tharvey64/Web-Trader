@@ -107,3 +107,11 @@ footer h1{
 .jump a{
   color:red;
 }
+
+#result, th, td{
+  border: 0.1em solid green;
+  background-color: blue; 
+}
+th,td {
+  color:white;
+}
