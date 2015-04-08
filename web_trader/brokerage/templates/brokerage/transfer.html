@@ -1,0 +1,22 @@
+{% extends "brokerage/base.html" %}
+
+{% block content %}
+    {% for account in accounts %}
+        <li>Account number: {{account.account.number}}</li>
+        <li>Account Balance: ${{account.account.balance}}</li><br></br>
+    {% empty %}
+        <h3>You must open an account before you can trade.</h3>
+    {% endfor %}
+    {% if accounts %}
+        <form name="companies" action="/brokerage/transfer/" method="POST">
+            {% csrf_token %}
+                <p>Which account would you like to take funds from</p>
+                    <input name="withdraw" type="text"> 
+                <p>Which account would you like to transfer the funds to?</p>
+                    <input name="deposit" type="text">      
+                <p>Please enter the amount</p>
+                    <input name="amount" type="text"> 
+            <input type="submit" value="Transfer">
+        </form>   
+    {% endif %}
+{% endblock %}

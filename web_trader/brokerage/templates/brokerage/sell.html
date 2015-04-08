@@ -22,15 +22,19 @@
             <!-- <br></br><li>Account Type: <strong>{{account.type_of}}</strong></li> -->
             <li>Account Number: {{account.account.number}}</li>
             <li>Account Balance: ${{account.account.balance}}</li><br></br>
+        {% empty %}
+            <h3>No accounts, yet.</h3>
         {% endfor %}
-        <form name="sell" action="/brokerage/sell_stock/" method="POST">
-            <p>Enter the Stock and quantity you would like to sell.</p>
-            <p>Also enter the account number you would like to deposit the money into.</p>
-            {% csrf_token %}
-            Stock Symbol:<br></br><input type="text" name="symbol"><br></br>
-            Quantity:<br></br><input type="text" name="quantity"><br></br>
-            Account Number:<br></br><input type="text" name="account_num"><br></br>
-            <input type="submit" value="Sell">
-        </form>
+        {% if accounts %}
+            <form name="sell" action="/brokerage/sell_stock/" method="POST">
+                <p>Enter the Stock and quantity you would like to sell.</p>
+                <p>Also enter the account number you would like to deposit the money into.</p>
+                {% csrf_token %}
+                Stock Symbol:<br></br><input type="text" name="symbol"><br></br>
+                Quantity:<br></br><input type="text" name="quantity"><br></br>
+                Account Number:<br></br><input type="text" name="account_num"><br></br>
+                <input type="submit" value="Sell">
+            </form>
+        {% endif %}
     {% endif %}
 {% endblock %}

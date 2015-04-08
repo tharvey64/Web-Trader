@@ -1,14 +1,14 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from bank.views import ViewAccount, ViewBanker, ViewIndex, ViewNewClient, ViewWithdraw, ViewDeposit, ViewTransfer
+import bank.views as view
 
 urlpatterns = patterns('',
     # Examples:
-    url(r'^$', ViewIndex.as_view(), name='home'),
-    url(r'^new_client/', ViewNewClient.as_view(),name='new'),
-	url(r'^view_account/', ViewAccount.as_view(),name='view'),
-    url(r'^withdraw/', ViewWithdraw.as_view(),name='withdraw'),
-    url(r'^deposit/', ViewDeposit.as_view(),name='deposit'),
-    url(r'^banker/', ViewBanker.as_view(),name='banker'),
-    url(r'^transfer/', ViewTransfer.as_view(),name='view'),
+    url(r'^$', view.IndexView.as_view(), name='home'),
+    url(r'^new_client/', view.NewClientView.as_view(),name='new'),
+	url(r'^view_account/', view.AccountView.as_view(),name='view'),
+    url(r'^withdraw/', view.WithdrawView.as_view(),name='withdraw'),
+    url(r'^deposit/', view.DepositView.as_view(),name='deposit'),
+    url(r'^banker/', view.BankerView.as_view(),name='banker'),
+    url(r'^transfer/', view.TransferView.as_view(),name='view'),
 )
