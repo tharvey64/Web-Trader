@@ -2,22 +2,23 @@
 
 {% block content %}
 	{% for account in accounts %}
-		<br></br><li>Account Type: <strong>{{account.type_of}}</strong></li>
+		<br></br><li>Account Type: {{account.type_of}}</li>
 		<li>Account number: {{account.account.number}}</li>
 		<li>Account Balance: ${{account.account.balance}}</li><br></br>
 	{% empty %}
 	<p>No accounts, yet.<p>
 	{% endfor %}
-
-	<form name="companies" action="/bank/transfer/" method="POST">
-	{% csrf_token %}
-			<p>Which account would you like to take funds from</p>
-				<input name="withdraw" type="text"> 
-			<p>Which account would you like to transfer the funds to?</p>
-				<input name="deposit" type="text"> 		
-			<p>Please enter the amount</p>
-				<input name="amount" type="text"> 
-		<input type="submit" value="submit">
-	</form>   
+	{% if accounts %}
+		<form name="companies" action="/bank/transfer/" method="POST">
+			{% csrf_token %}
+				<p>Which account would you like to take funds from</p>
+					<input name="withdraw" type="text"> 
+				<p>Which account would you like to transfer the funds to?</p>
+					<input name="deposit" type="text"> 		
+				<p>Please enter the amount</p>
+					<input name="amount" type="text"> 
+			<input type="submit" value="Transfer">
+		</form>
+	{% endif %}   
 
 {% endblock %}

@@ -2,21 +2,20 @@
 
 {% block content %}
 	{% for account in accounts %}
-		<br></br><li>Account Type: <strong>{{account.type_of}}</strong></li>
 		<li>Account number: {{account.account.number}}</li>
 		<li>Account Balance: ${{account.account.balance}}</li><br></br>
 	{% empty %}
-	No accounts, yet.
+		<h3>You must open an account before you can trade.</h3>
 	{% endfor %}
-
-	<form name="companies" action="/brokerage/deposit/" method="POST">
-	{% csrf_token %}
-		<h3>What shall we deposit today?</h3>
-			<p>Please enter the account number</p>
-				<input name="account" type="text"> 
-			<p>Please enter the amount</p>
-				<input name="amount" type="text"> 
-		<input type="submit" value="submit">
-	</form>   
-
+	{% if accounts %}
+		<form name="companies" action="/brokerage/deposit/" method="POST">
+		{% csrf_token %}
+			<h3>What shall we deposit today?</h3>
+				<p>Please enter the account number</p>
+					<input name="account" type="text"> 
+				<p>Please enter the amount</p>
+					<input name="amount" type="text"> 
+			<input type="submit" value="Deposit">
+		</form>   
+	{% endif %}
 {% endblock %}

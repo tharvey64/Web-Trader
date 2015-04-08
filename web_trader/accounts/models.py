@@ -8,9 +8,10 @@ class Account(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def withdraw(self, amount):
-        if amount > self.balance:
+        if amount > self.balance or amount < 0:
             return False
         self.balance -= amount
+        print(self.balance)
         self.save()
         return True
 
