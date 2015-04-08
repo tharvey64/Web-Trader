@@ -124,14 +124,13 @@ class PurchaseView(View):
         if 'Message' not in quote:
             quantity = int(request.POST['quantity'])
             total_value = int(quote['LastPrice']) * quantity
-            account = BrokerageAccount.objects.get(client__pk=client_id)
-            if account.withdraw(total_value):
+            account = BrokerageAccount.objects.get(account__number=request.POST['account_num'])
+            if account.account.withdraw(total_value):
                 client = BrokerageClient.objects.get(id=request.session['brokerage_client_id'])
                 company,created = Company.objects.get_or_create(symbol=quote['Symbol'],name=quote['Name'])
                 transaction = Transaction.objects.create(company=company,client=client,quantity=quantity,share_price=int(quote['LastPrice']))
                 return render(request, self.template, {'transaction': transaction})
         return redirect(request, self.template)
-        # return redirect(request, self.template,{'transaction': quote['Message']})
 
 class SellView(View):
     template = 'brokerage/sell.html'
@@ -147,11 +146,10 @@ class SellView(View):
         if 'Message' not in quote:
             quantity = int(request.POST['quantity'])
             total_value = int(quote['LastPrice']) * quantity
-            account = BrokerageAccount.objects.get(client__pk=client_id)
-            if account.deposit(total_value):
+            account = BrokerageAccount.objects.get(account__number=request.POST['account_num'])
+            if account.account.deposit(total_value):
                 client = BrokerageClient.objects.get(id=request.session['brokerage_client_id'])
                 company,created = Company.objects.get_or_create(symbol=quote['Symbol'],name=quote['Name'])
                 transaction = Transaction.objects.create(company=company,client=client,quantity=-quantity,share_price=int(quote['LastPrice']))
                 return render(request, self.template, {'transaction': transaction})
-        return redirect(request, self.template)
-        # return render(request, self.template,{'transaction': quote['Message']})
+        return render(request, self.template)

@@ -5,6 +5,6 @@ urlpatterns = patterns('',
     url(r'^stocks/', include('stocks.urls')),
     url(r'^brokerage/', include('brokerage.urls')),
     url(r'^bank/', include('bank.urls')),
-    url(r'^users/', include('users.urls')),
+    url(r'^(users/|$)', include('users.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )
